@@ -12,12 +12,12 @@ function insertImg(section, image){
     section.appendChild(newFigure);
     const newImg = document.createElement("img");
     newFigure.appendChild(newImg);
-    newImg.setAttribute("src", image)
+    newImg.setAttribute("src", image);
 }
 
 function insertName(div,name){
-    const newH32 = document.createElement("h3")
-    div.appendChild(newH32);
+    const newH3 = document.createElement("h3");
+    div.appendChild(newH3);
     newH3.innerHTML = name;
 }
 
@@ -116,5 +116,6 @@ promiseGet()
         }
     })
     .catch(function(error) {
-        serverOut();
+        
     })
+
