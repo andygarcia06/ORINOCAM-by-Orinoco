@@ -110,8 +110,8 @@ promiseGet()
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
-            insertImageUrl(newSection, response[i].imageUrl);
-            const newDiv1 = document.createElement('div');
+            insertImage(newSection, response[i].imageUrl);
+            const newDiv1 = document.createElement("div");
             newSection.appendChild(newDiv1);
             insertName(newDiv1, response[i].name);
             insertId(newDiv1, response[i]._id);
