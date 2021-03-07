@@ -78,7 +78,7 @@ function insertLienPerso(div3, idLien){
     newDiv5.appendChild(newP6);
     const newA = document.createElement("a");
     newP6.appendChild(newA);
-    newA.setAttribute("href", "./product.html?id=" + idLien);
+    newA.setAttribute("href", "./produit.html?id=" + idLien);
     newA.innerHTML = "";
 }
 
