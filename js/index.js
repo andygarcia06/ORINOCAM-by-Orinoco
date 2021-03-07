@@ -2,6 +2,8 @@
 
 const catalogue = document.getElementById("catalogue");
 const section = document.getElementById("section");
+const fondPhotoOurson = document.getElementById('fond-photo-ourson');
+const picTeddy = document.createElement('img');
 
 // Function  //
 
@@ -97,7 +99,7 @@ function serverOut() {
 /////////////////// APPEL DE LA FONCTION ////////////////
 promiseGet()
     .then(function(response) {
-
+        picTeddy.setAttribute('src', 'http://localhost:3000/images/vcam.jpg');
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
