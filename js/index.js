@@ -2,9 +2,6 @@
 
 const catalogue = document.getElementById("catalogue");
 const section = document.getElementById("section");
-const newH2 = document.createElement("h2");
-const newH3 = document.createElement("h3");
-
 
 // Function  //
 
@@ -25,12 +22,6 @@ function promiseGet() {
     })
 }
 
-function sectionTitles(){
-    section.appendChild(newH2);
-    newH2.innerHTML = " Orinocam by Orinoco";
-    section.appendChild(newH3);
-    newH3.innerHTML = "Le n°1 des sites de ventes de caméras vintages, complètement customizables"
-}
 
 function insertImg(section, image){
     const newFigure = document.createElement("figure");
@@ -92,14 +83,15 @@ function insertLienPerso(div3, idLien){
 }
 
 function serverOut() {
-    const myH1 = newH2;
-    myH1.style.display = "none";
-    const myH2 = newH3
+    const myH1 = document.getElementById('my_title');
+    myH1.style.display = 'none';
+    const myH2 = document.getElementById('my_second_title');
     myH2.style.display='none';
     const myFooter = document.getElementById('footer');
     myFooter.style.display ='none';
     const divServerOut = document.createElement('div');
     catalogue.appendChild(divServerOut);
+    divServerOut.id = 'div_server_out';
     divServerOut.innerHTML = 'Nous revenons très bientôt';
 }
 
@@ -110,7 +102,6 @@ promiseGet()
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
-            sectionTitles();
             insertImage(newSection, response[i].imageUrl);
             const newDiv1 = document.createElement("div");
             newSection.appendChild(newDiv1);
