@@ -91,7 +91,7 @@ function serverOut() {
     myFooter.style.display ='none';
     const divServerOut = document.createElement('div');
     catalogue.appendChild(divServerOut);
-    divServerOut.innerHTML = 'Nous revenons très bientôt';
+    divServerOut.innerHTML = 'Nous rencontrons actuellement un léger problème, nous revenons très vite';
 }
 
 /////////////////// APPEL DE LA FONCTION ////////////////
