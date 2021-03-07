@@ -1,6 +1,9 @@
 //  Constantes //
 
 const catalogue = document.getElementById("catalogue");
+const section = document.getElementById("section");
+const newH2 = document.createElement("h2");
+const newH3 = document.createElement("h3");
 
 
 // Function  //
@@ -22,12 +25,9 @@ function promiseGet() {
     })
 }
 
-function (){
-    const section = document.getElementById("section");
-    const newH2 = document.createElement("h2")
+function sectionTitles(){
     section.appendChild(newH2);
     newH2.innerHTML = " Orinocam by Orinoco";
-    const newH3 = document.createElement("h3");
     section.appendChild(newH3);
     newH3.innerHTML = "Le n°1 des sites de ventes de caméras vintages, complètement customizables"
 }
@@ -88,12 +88,13 @@ function insertLienPerso(div3, idLien){
     const newA = document.createElement("a");
     newP6.appendChild(newA);
     newA.setAttribute("href", "./product.html?id=" + idLien);
-    newA.innerHTML = ;
+    newA.innerHTML = "";
 }
+
 function serverOut() {
-    // const myH1 = document.getElementById("my_title");//
+    const myH1 = newH2;
     myH1.style.display = "none";
-    // const myH2 = document.getElementById("my_second_title');//
+    const myH2 = newH3
     myH2.style.display='none';
     const myFooter = document.getElementById('footer');
     myFooter.style.display ='none';
@@ -101,3 +102,28 @@ function serverOut() {
     catalogue.appendChild(divServerOut);
     divServerOut.innerHTML = 'Nous revenons très bientôt';
 }
+
+/////////////////// APPEL DE LA FONCTION ////////////////
+promiseGet()
+    .then(function(response) {
+
+        for(let i = 0; i < response.length; i++) {
+            const newSection = document.createElement('section');
+            catalogue.appendChild(newSection);
+            insertImageUrl(newSection, response[i].imageUrl);
+            const newDiv1 = document.createElement('div');
+            newSection.appendChild(newDiv1);
+            insertName(newDiv1, response[i].name);
+            insertId(newDiv1, response[i]._id);
+            insertColor(newDiv1);
+            insertDescription(newDiv1, response[i].description);
+            const newDiv3 = document.createElement('div');
+            newSection.appendChild(newDiv3);
+            insertPrice(newDiv3, [response[i].price].map(i => i / 100)+ ' ' + '€');
+            insertLienPerso(newDiv3, response[i]._id);
+            
+        }
+    })
+    .catch(function(error) {
+        serverOut();
+    })
