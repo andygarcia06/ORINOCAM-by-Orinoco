@@ -71,11 +71,9 @@ function serverOut() {
     myH1.style.display = "none";
     const myH2 = document.getElementById("my_second_title");
     myH2.style.display="none";
-    const myFooter = document.getElementById("footer");
-    myFooter.style.display ="none";
     const divServerOut = document.createElement("div");
     catalogue.appendChild(divServerOut);
-    divServerOut.innerHTML = "Nous rencontrons actuellement un léger problème, nous revenons très vite";
+    divServerOut.innerHTML = "Nous rencontrons actuellement un léger problème, nous revenons très vite !!!";
 }
 
 function promiseGet() {
@@ -115,7 +113,8 @@ promiseGet()
             
         }
     })
+
     .catch(function(error) {
-        
+        serverOut()
     })
 
