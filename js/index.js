@@ -115,7 +115,7 @@ promiseGet()
             newSection.appendChild(newDiv1);
             insertName(newDiv1, response[i].name);
             insertId(newDiv1, response[i]._id);
-            insertColor(newDiv1);
+            insertLentille(newDiv1);
             insertDescription(newDiv1, response[i].description);
             const newDiv3 = document.createElement("div");
             newSection.appendChild(newDiv3);
