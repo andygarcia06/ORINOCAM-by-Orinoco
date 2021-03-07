@@ -1,16 +1,36 @@
 //  Constantes //
 
-const section = document.getElementById("section")
-
-
-
-
+const catalogue = document.getElementById("catalogue");
 
 
 // Function  //
 
+function promiseGet() {
+    return new Promise((resolve, reject) => {
+        let recupHttp = new XMLHttpRequest();
+        recupHttp.open('GET', 'http://localhost:3000/api/cameras');
+        recupHttp.send();
+        recupHttp.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE) {
+                if(this.status === 200) {
+                    resolve(JSON.parse(this.responseText));
+                }else{
+                    reject(recupHttp);
+                }
+            }
+        }
+    })
+}
 
-
+function (){
+    const section = document.getElementById("section");
+    const newH2 = document.createElement("h2")
+    section.appendChild(newH2);
+    newH2.innerHTML = " Orinocam by Orinoco";
+    const newH3 = document.createElement("h3");
+    section.appendChild(newH3);
+    newH3.innerHTML = "Le n°1 des sites de ventes de caméras vintages, complètement customizables"
+}
 
 function insertImg(section, image){
     const newFigure = document.createElement("figure");
@@ -21,8 +41,8 @@ function insertImg(section, image){
 }
 
 function insertName(div,name){
-    const newH3 = document.createElement("h3")
-    div.appendChild(newH3);
+    const newH32 = document.createElement("h3")
+    div.appendChild(newH32);
     newH3.innerHTML = name;
 }
 
