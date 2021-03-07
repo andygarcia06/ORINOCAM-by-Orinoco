@@ -2,27 +2,9 @@
 
 const catalogue = document.getElementById("catalogue");
 const section = document.getElementById("section");
-const fondPhotoOurson = document.getElementById('fond-photo-ourson');
-const picTeddy = document.createElement('img');
 
 // Function  //
 
-function promiseGet() {
-    return new Promise((resolve, reject) => {
-        let recupHttp = new XMLHttpRequest();
-        recupHttp.open('GET', 'http://localhost:3000/api/cameras');
-        recupHttp.send();
-        recupHttp.onreadystatechange = function() {
-            if(this.readyState === XMLHttpRequest.DONE) {
-                if(this.status === 200) {
-                    resolve(JSON.parse(this.responseText));
-                }else{
-                    reject(recupHttp);
-                }
-            }
-        }
-    })
-}
 
 
 function insertImg(section, image){
@@ -96,10 +78,26 @@ function serverOut() {
     divServerOut.innerHTML = "Nous rencontrons actuellement un léger problème, nous revenons très vite";
 }
 
+function promiseGet() {
+    return new Promise((resolve, reject) => {
+        let recupHttp = new XMLHttpRequest();
+        recupHttp.open('GET', 'http://localhost:3000/api/cameras');
+        recupHttp.send();
+        recupHttp.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE) {
+                if(this.status === 200) {
+                    resolve(JSON.parse(this.responseText));
+                }else{
+                    reject(recupHttp);
+                }
+            }
+        }
+    })
+}
+
 /////////////////// APPEL DE LA FONCTION ////////////////
 promiseGet()
     .then(function(response) {
-        picTeddy.setAttribute('src', 'http://localhost:3000/images/vcam.jpg');
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
