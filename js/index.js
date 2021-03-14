@@ -5,8 +5,22 @@ const section = document.getElementById("section");
 const url = "http://localhost:3000/api/cameras";
 
 // Function  //
-
-
+function promiseGet() {
+    return new Promise((resolve, reject) => {
+        let recupHttp = new XMLHttpRequest();
+        recupHttp.open('GET', url);
+        recupHttp.send();
+        recupHttp.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE) {
+                if(this.status === 200) {
+                    resolve(JSON.parse(this.responseText));
+                }else{
+                    reject(recupHttp);
+                }
+            }
+        }
+    })
+}
 
 function insertImg(section, image){
     const newFigure = document.createElement("figure");
@@ -78,22 +92,7 @@ function serverOut() {
     divServerOut.innerHTML = "Nous rencontrons actuellement un léger problème, nous revenons très vite !!!";
 }
 
-function promiseGet() {
-    return new Promise((resolve, reject) => {
-        let recupHttp = new XMLHttpRequest();
-        recupHttp.open('GET', url);
-        recupHttp.send();
-        recupHttp.onreadystatechange = function() {
-            if(this.readyState === XMLHttpRequest.DONE) {
-                if(this.status === 200) {
-                    resolve(JSON.parse(this.responseText));
-                }else{
-                    reject(recupHttp);
-                }
-            }
-        }
-    })
-}
+
 
 /////////////////// APPEL DE LA FONCTION ////////////////
 promiseGet()
