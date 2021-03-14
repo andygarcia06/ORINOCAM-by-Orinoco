@@ -2,6 +2,7 @@
 
 const catalogue = document.getElementById("catalogue");
 const section = document.getElementById("section");
+const url = "http://localhost:3000/api/cameras";
 
 // Function  //
 
@@ -13,6 +14,7 @@ function insertImg(section, image){
     const newImg = document.createElement("img");
     newFigure.appendChild(newImg);
     newImg.setAttribute("src", image);
+    newImg.setAttribute("alt", "image camera");
 }
 
 function insertName(div,name){
@@ -63,7 +65,7 @@ function insertLienPerso(div3, idLien){
     const newA = document.createElement("a");
     newP6.appendChild(newA);
     newA.setAttribute("href", "./produit.html?id=" + idLien);
-    newA.innerHTML = "";
+    newA.innerHTML = "Modifiez votre caméra !";
 }
 
 function serverOut() {
@@ -79,7 +81,7 @@ function serverOut() {
 function promiseGet() {
     return new Promise((resolve, reject) => {
         let recupHttp = new XMLHttpRequest();
-        recupHttp.open('GET', 'http://localhost:3000/api/cameras');
+        recupHttp.open('GET', url);
         recupHttp.send();
         recupHttp.onreadystatechange = function() {
             if(this.readyState === XMLHttpRequest.DONE) {
