@@ -3,6 +3,7 @@
 const str = window.location;
 const url = new URL(str);
 const idUrl = url.searchParams.get("id");
+const urlGet = "http://localhost:3000/api/cameras/"
 
 
 
@@ -11,7 +12,7 @@ const idUrl = url.searchParams.get("id");
 function promiseGet() {
     return new Promise((resolve, reject) => {
         let recoverHttp = new XMLHttpRequest();
-        recoverHttp.open('GET', 'http://localhost:3000/api/teddies/'+ idUrl);
+        recoverHttp.open('GET', urlGet + idUrl);
         recoverHttp.send();
         recoverHttp.onreadystatechange = function() {
             if(this.readyState === XMLHttpRequest.DONE) {
@@ -28,68 +29,65 @@ function promiseGet() {
 }
 
 function insertPicture(section, camera) {
-    const newFigure = document.createElement('figure');
+    const newFigure = document.createElement("figure");
     section.appendChild(newFigure);
-    const newPic = document.createElement('img');
+    const newPic = document.createElement("img");
     newFigure.appendChild(newPic);
-    newPic.setAttribute('src', camera.imageUrl);
+    newPic.setAttribute("src", camera.imageUrl);
 }
 function insertName(description, camera) {
-    const nameTeddy = document.createElement('h3');
+    const nameTeddy = document.createElement("h3");
     description.appendChild(nameTeddy);
     nameTeddy.innerHTML = camera.name;
 }
 function insertId(description, camera) {
-    const divId = document.createElement('div');
+    const divId = document.createElement("div");
     description.appendChild(divId);
-    const paragraphNumId = document.createElement('p');
+    const paragraphNumId = document.createElement("p");
     divId.appendChild(paragraphNumId);
-    const newSpan = document.createElement('span');
+    const newSpan = document.createElement("span");
     paragraphNumId.appendChild(newSpan);
-    newSpan.innerHTML = "Numéro d'Id : ";
-    const paragraphId = document.createElement('p');
+    newSpan.innerHTML = " Numéro d'Id : ";
+    const paragraphId = document.createElement("p");
     divId.appendChild(paragraphId);
     paragraphId.innerHTML = camera._id;
 }
-function insertColor(description, camera) {
-    const divColor = document.createElement('div');
-    description.appendChild(divColor);
-    divColor.className ="labelForColor"; 
-    const labelColor = document.createElement('label');
-    divColor.appendChild(labelColor);
-    labelColor.innerHTML = 'Sélectionner votre Couleur préférée : ';
-    const selectColor = document.createElement('select');
+function insertLentille(description, cameraLentille) {
+    const divLentille = document.createElement("div");
+    description.appendChild(divLentille);
+    const labelLentille = document.createElement("label");
+    divColor.appendChild(labelLentille);
+    labelColor.innerHTML = "Sélectionner une lentille : ";
+    const selectLentille = document.createElement("select");
     labelColor.appendChild(selectColor);
-    selectColor.id = 'choose_color';
+
     
-    for(let i = 0; i < teddyColors.length; i +=1){
-        const secondOption = document.createElement('option');
-        selectColor.appendChild(secondOption);
-        secondOption.setAttribute('value', teddyColors[i]);
-        secondOption.setAttribute('required', '');
-        secondOption.innerHTML = teddyColors[i];
+    for(let i = 0; i < cameraLentille.length; i +=1){
+        const secondOption = document.createElement("option");
+        selectLentille.appendChild(secondOption);
+        secondOption.setAttribute("value", cameraLentille[i]);
+        secondOption.setAttribute("required", "");
+        secondOption.innerHTML = cameraLentille[i];
     }
 }
-function insertDescription(description, teddy) {
-    const paragraphDescription = document.createElement('p');
+
+function insertDescription(description, camera) {
+    const paragraphDescription = document.createElement("p");
     description.appendChild(paragraphDescription);
-    paragraphDescription.className = 'divDescript';
-    paragraphDescription.innerHTML = teddy.description;
+    paragraphDescription.innerHTML = camera.description;
 }
-function insertButtonCart(section, teddy) {
-    const divRate = document.createElement('div');
+
+function insertButtonCart(section, camera) {
+    const divRate = document.createElement("div");
     section.appendChild(divRate);
-    divRate.className = 'divTarifs';
-    const divPrice = document.createElement('div');
+    const divPrice = document.createElement("div");
     divRate.appendChild(divPrice);
-    divPrice.className = 'prixTeddy';
-    const paragraphPrice = document.createElement('p');
+    const paragraphPrice = document.createElement("p");
     divPrice.appendChild(paragraphPrice);
-    paragraphPrice.innerHTML = [teddy.price].map(price => price / 100) + ' ' + '€';
-    const buttonValid = document.createElement('button')
+    paragraphPrice.innerHTML = [camera.price].map(price => price / 100) + ' ' + '€';
+    const buttonValid = document.createElement("button")
     divRate.appendChild(buttonValid);
-    buttonValid.className = 'boutonPanier';
-    buttonValid.setAttribute('type', 'submit');
+    buttonValid.setAttribute("type", "submit");
     buttonValid.innerHTML = "Ajouter au Panier";
 }
 
@@ -98,44 +96,42 @@ function insertButtonCart(section, teddy) {
 
 promiseGet()
     .then(function(response) {
-        const pageProduct = document.getElementById('page_product');
-        const mainSection = document.createElement('section');
+        const pageProduct = document.getElementById("page_product");
+        const mainSection = document.createElement("section");
         pageProduct.appendChild(mainSection);
-        mainSection.className = 'onlyTeddy';
         insertPicture(mainSection, response);
-        const teddyDescription = document.createElement('div');
-        mainSection.appendChild(teddyDescription);
-        teddyDescription.className = 'description_Teddy';
-        insertName(teddyDescription, response);
-        insertId(teddyDescription, response);
-        insertColor(teddyDescription,response.colors);
-        const chooseColor = document.querySelector('select');
-        chooseColor.addEventListener('change', function(e) { //evenement pour voir la couloir choisi
-            console.log(chooseColor.value);
+        const cameraDescription = document.createElement("div");
+        mainSection.appendChild(cameraDescription);
+        insertName(cameraDescription, response);
+        insertId(cameraDescription, response);
+        insertLentille(cameraDescription,response.colors);
+        const chooseLentille = document.querySelector("select");
+        chooseLentille.addEventListener('change', function(e) { //evenement pour voir la couloir choisi
+            console.log(chooseLentille.value);
         })
-        insertDescription(teddyDescription, response);
+        insertDescription(cameraDescription, response);
         insertButtonCart(mainSection, response);
 
         
         /////////// EVENEMENTS ///////////
-        const addCart = document.querySelector('button');
-        addCart.addEventListener('click', function(e) { //evenement 'click' pour l'envoi au local storage
-            let teddiesChoosen = {
+        const addCart = document.querySelector("button");
+        addCart.addEventListener("click", function(e) { //evenement 'click' pour l'envoi au local storage
+            let cameraChoosen = {
                 picture: response.imageUrl,
                 firstName: response.name,
                 theId: response._id,
-                color: chooseColor.value,
+                color: chooseLentille.value,
                 price: response.price,
             }
-            const teddiesAdded = localStorage.getItem('product');
-            if(teddiesAdded) {
-                teddiesInCArt = JSON.parse(teddiesAdded);
-                teddiesInCArt.push(teddiesChoosen);
+            const camerasAdded = localStorage.getItem("product");
+            if(camerasAdded) {
+                camerasInCArt = JSON.parse(teddiesAdded);
+                camerasInCArt.push(cameraChoosen);
                 localStorage.setItem('product', JSON.stringify(teddiesInCArt));
                 alert('Ajouté au panier !');
             } else {
-                teddiesInCArt = [];
-                teddiesInCArt.push(teddiesChoosen);
+                camerasInCArt = [];
+                camerasInCArt.push(cameraChoosen);
                 localStorage.setItem('product', JSON.stringify(teddiesInCArt));
                 alert('Ajouté au panier !');
             }
