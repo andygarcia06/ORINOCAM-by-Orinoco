@@ -29,6 +29,7 @@ function insertImg(section, image){
     newFigure.appendChild(newImg);
     newImg.setAttribute("src", image);
     newImg.setAttribute("alt", "image camera");
+    newImg.className = "d-block m-auto w-75"
 }
 
 function insertName(div,name){
@@ -100,7 +101,7 @@ promiseGet()
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
-            insertImage(newSection, response[i].imageUrl);
+            insertImg(newSection, response[i].imageUrl);
             const newDiv1 = document.createElement("div");
             newSection.appendChild(newDiv1);
             insertName(newDiv1, response[i].name);
@@ -111,8 +112,8 @@ promiseGet()
             newSection.appendChild(newDiv3);
             insertPrice(newDiv3, [response[i].price].map(i => i / 100)+ ' ' + '€');
             insertLienPerso(newDiv3, response[i]._id);
-            
-        }
+        }   
+    
     })
 
     .catch(function(error) {
