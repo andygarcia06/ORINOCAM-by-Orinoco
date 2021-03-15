@@ -34,6 +34,7 @@ function insertPicture(section, camera) {
     const newPic = document.createElement("img");
     newFigure.appendChild(newPic);
     newPic.setAttribute("src", camera.imageUrl);
+    newPic.className = "w-100 d-block"
 }
 function insertName(description, camera) {
     const nameTeddy = document.createElement("h3");
@@ -56,10 +57,10 @@ function insertLentille(description, cameraLentille) {
     const divLentille = document.createElement("div");
     description.appendChild(divLentille);
     const labelLentille = document.createElement("label");
-    divColor.appendChild(labelLentille);
-    labelColor.innerHTML = "Sélectionner une lentille : ";
+    divLentille.appendChild(labelLentille);
+    labelLentille.innerHTML = "Sélectionner une lentille : ";
     const selectLentille = document.createElement("select");
-    labelColor.appendChild(selectColor);
+    labelLentille.appendChild(selectLentille);
 
     
     for(let i = 0; i < cameraLentille.length; i +=1){
@@ -85,7 +86,7 @@ function insertButtonCart(section, camera) {
     const paragraphPrice = document.createElement("p");
     divPrice.appendChild(paragraphPrice);
     paragraphPrice.innerHTML = [camera.price].map(price => price / 100) + ' ' + '€';
-    const buttonValid = document.createElement("button")
+    const buttonValid = document.createElement("button");
     divRate.appendChild(buttonValid);
     buttonValid.setAttribute("type", "submit");
     buttonValid.innerHTML = "Ajouter au Panier";
@@ -104,14 +105,14 @@ promiseGet()
         mainSection.appendChild(cameraDescription);
         insertName(cameraDescription, response);
         insertId(cameraDescription, response);
-        insertLentille(cameraDescription,response.colors);
+        insertLentille(cameraDescription,response.lentilles);
         const chooseLentille = document.querySelector("select");
-        chooseLentille.addEventListener('change', function(e) { //evenement pour voir la couloir choisi
+        chooseLentille.addEventListener("change", function(e) { //evenement pour voir la couloir choisi
             console.log(chooseLentille.value);
         })
         insertDescription(cameraDescription, response);
         insertButtonCart(mainSection, response);
-
+    })
         
         /////////// EVENEMENTS ///////////
         const addCart = document.querySelector("button");
@@ -136,7 +137,8 @@ promiseGet()
                 alert('Ajouté au panier !');
             }
         })
-    })
+        
     .catch(function(error) {
         console.log(error);
-    })
+    }) 
+
