@@ -36,6 +36,7 @@ function insertName(div,name){
     const newH3 = document.createElement("h3");
     div.appendChild(newH3);
     newH3.innerHTML = name;
+    // newH3.className = "d-block m-auto text-secondary";
 }
 
 function insertId(div, id){
