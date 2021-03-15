@@ -4,6 +4,7 @@ const catalogue = document.getElementById("catalogue");
 const section = document.getElementById("section");
 const url = "http://localhost:3000/api/cameras";
 
+
 // Function  //
 function promiseGet() {
     return new Promise((resolve, reject) => {
@@ -29,12 +30,14 @@ function insertImg(section, image){
     newFigure.appendChild(newImg);
     newImg.setAttribute("src", image);
     newImg.setAttribute("alt", "image camera");
+    newImg.className = "d-block me-5 w-100 rounded"
 }
 
 function insertName(div,name){
     const newH3 = document.createElement("h3");
     div.appendChild(newH3);
     newH3.innerHTML = name;
+    newH3.className = "text-secondary font-weight-bold"
 }
 
 function insertId(div, id){
@@ -46,7 +49,9 @@ function insertId(div, id){
     newP1.appendChild(newSpan);
     const newP2 = document.createElement("p");
     newDiv2.appendChild(newP2);
-    newP2.innerHTML = id;
+    const stringId = "Numéro identifiant : ";
+    newP2.innerHTML =   stringId + id;
+    newP2.className = "text-secondary font-weight-bold";
 }
 
 function insertLentille(div){
@@ -69,6 +74,7 @@ function insertPrice(div3, price){
     const newP5 = document.createElement("p");
     newDiv4.appendChild(newP5);
     newP5.innerHTML = price;
+    newP5.className = "font-weight-bold";
 }
 
 function insertLienPerso(div3, idLien){
@@ -76,8 +82,11 @@ function insertLienPerso(div3, idLien){
     div3.appendChild(newDiv5);
     const newP6 = document.createElement("p");
     newDiv5.appendChild(newP6);
+    const newButton = document.createElement("button");
+    newP6.appendChild(newButton);
     const newA = document.createElement("a");
-    newP6.appendChild(newA);
+    newButton.appendChild(newA);
+    newButton.className = "btn btn-secondary d-block"
     newA.setAttribute("href", "./produit.html?id=" + idLien);
     newA.innerHTML = "Modifiez votre caméra !";
 }
@@ -100,7 +109,8 @@ promiseGet()
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
-            insertImage(newSection, response[i].imageUrl);
+            newSection.className = "mb-5 p-3 w-100 border border-secondary"
+            insertImg(newSection, response[i].imageUrl);
             const newDiv1 = document.createElement("div");
             newSection.appendChild(newDiv1);
             insertName(newDiv1, response[i].name);
@@ -113,6 +123,7 @@ promiseGet()
             insertLienPerso(newDiv3, response[i]._id);
             
         }
+
     })
 
     .catch(function(error) {
