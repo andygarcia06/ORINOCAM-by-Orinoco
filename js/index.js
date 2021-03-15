@@ -109,7 +109,7 @@ promiseGet()
         for(let i = 0; i < response.length; i++) {
             const newSection = document.createElement("section");
             catalogue.appendChild(newSection);
-            newSection.className = "mb-5 p-3 w-100 border border-secondary"
+            newSection.className = "mb-5 p-3 w-100 border border-secondary rounded"
             insertImg(newSection, response[i].imageUrl);
             const newDiv1 = document.createElement("div");
             newSection.appendChild(newDiv1);

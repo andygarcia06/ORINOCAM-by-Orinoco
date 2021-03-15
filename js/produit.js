@@ -42,7 +42,6 @@ function insertName(description, camera) {
 function insertId(description, camera) {
     const divId = document.createElement('div');
     description.appendChild(divId);
-    divId.className = 'id_ourson';
     const paragraphNumId = document.createElement('p');
     divId.appendChild(paragraphNumId);
     const newSpan = document.createElement('span');
