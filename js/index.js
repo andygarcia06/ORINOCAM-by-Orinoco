@@ -29,7 +29,7 @@ function insertImg(section, image){
     newFigure.appendChild(newImg);
     newImg.setAttribute("src", image);
     newImg.setAttribute("alt", "image camera");
-    newImg.className = "d-block m-auto w-75"
+    newImg.className = "d-block m-auto w-75";
 }
 
 function insertName(div,name){
